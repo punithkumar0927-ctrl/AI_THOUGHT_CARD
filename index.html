@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Thought Card</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <div class="card" id="card" data-state="0" tabindex="0" role="button"
+         aria-label="Greeting card. Click to open and turn pages.">
+
+        <!-- Page 2 (bottom, revealed last) -->
+        <div class="page p2">
+            <img src="./page2.jpg" alt="Thought 2: Life is my algorithm; I learn from every error, adapt to every change, and keep optimizing my dreams.">
+        </div>
+
+        <!-- Page 1 (turns to reveal page 2) -->
+        <div class="leaf l1">
+            <div class="face front">
+                <img src="./page1.jpg" alt="Thought 1: Life is an AI model; every experience is data, every mistake is training, and every dream is the prediction.">
+            </div>
+            <div class="face back"></div>
+        </div>
+
+        <!-- Front cover (turns to reveal page 1) -->
+        <div class="leaf cover">
+            <div class="face front">
+                <img src="./cover.jpg" alt="Greeting card cover: glowing AI brain between two robotic hands">
+            </div>
+            <div class="face back"></div>
+        </div>
+    </div>
+
+    <p class="hint" id="hint">Click the card to open</p>
+
+    <script>
+        const card = document.getElementById('card');
+        const hint = document.getElementById('hint');
+        const MAX = 2;
+        const hints = [
+            'Click the card to open',
+            'Click to turn to the next thought',
+            'Click to close · click the left page to go back'
+        ];
+        let state = 0;
+
+        function render() {
+            card.dataset.state = state;
+            hint.textContent = hints[state];
+        }
+
+        function next() { state = state >= MAX ? 0 : state + 1; render(); }
+        function prev() { state = Math.max(0, state - 1); render(); }
+
+        card.addEventListener('click', (e) => {
+            const r = card.getBoundingClientRect();
+            // clicking the turned (left) pages goes back one page
+            if (state > 0 && e.clientX < r.left) prev(); else next();
+        });
+
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); next(); }
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') prev();
+        });
+
+        render();
+    </script>
+</body>
+</html>
