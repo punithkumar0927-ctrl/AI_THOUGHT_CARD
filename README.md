@@ -26,10 +26,13 @@ ai-thought-card/
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo-name>.git
+git clone https://github.com/punithkumar0927-ctrl/Greeting_card
 ```
 
 Open `index.html` in any modern browser. An internet connection is only needed for the Google Font used by the hint text.
+
+## 🚀 local host
+http://localhost:8137/
 
 ## 🎨 Customization
 
